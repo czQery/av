@@ -1,7 +1,10 @@
 name        = "Qery's AV"
 source_dir  = "source"
 output_dir  = "output"
-description = [=[Qery's AV]=]
+description = [=[Based on [url=https://steamcommunity.com/sharedfiles/filedetails/?id=343045050]roxxAV[/url]
+
+
+Source code: [url=https://github.com/czQery/av]link[/url]]=]
 image       = "preview.jpg"
 tag_modtype = "Alien Vision"
 tag_support = "Passes Default Consistency"
