@@ -1,0 +1,8 @@
+name        = "Qery's AV"
+source_dir  = "source"
+output_dir  = "output"
+description = [=[Qery's AV]=]
+image       = "preview.jpg"
+tag_modtype = "Alien Vision"
+tag_support = "Passes Default Consistency"
+publish_id = 2827262101
