@@ -36,7 +36,6 @@ VS_OUTPUT SFXBasicVS(VS_INPUT input) {
     return output;
 }
 
-const float4 cBorder = float4(0.1, 0.1, 0.1, 0) * 0.005;
 const float4 cMarines = float4(0.923, 0, 0.886, 0) * 2;
 const float4 cMarinesStructures = float4(0, 0.125, 0.925, 0) * 4;
 const float4 cAliens = float4(1, 1, 0, 0) * 2;
@@ -45,28 +44,22 @@ const float4 cAliensStructures = float4(0.992, 0.152, 0.031, 0);
 const float4 edgeColorBorder = float4(0.1, 0.1, 0.1, 0) * 0.005;
 
 float4 SFXDarkVisionPS(PS_INPUT input) : COLOR0 {
-    float2 texCoord = input.texCoord;
-    float4 inputPixel = tex2D(baseTexture, texCoord);
-    float depth = tex2D(depthTexture, texCoord).r;
-    float model = tex2D(depthTexture, texCoord).g;
-    float3 normal = tex2D(normalTexture, texCoord).xyz;
+    float4 inputPixel = tex2D(baseTexture, input.texCoord);
+    float depth = tex2D(depthTexture, input.texCoord).r;
+    float model = tex2D(depthTexture, input.texCoord).g;
 
     // disabled while off
     if (amount == 0) {
         return inputPixel;
     }
 
-    float x = (texCoord.x - .5) * 2;
-    float y = (texCoord.y - .5) * 2;
+    float x = (input.texCoord.x - .5) * 2;
+    float y = (input.texCoord.y - .5) * 2;
     float distanceSq = x * x + y * y;
-
-    float2 depth1 = tex2D(depthTexture, input.texCoord).rg;
-
-    float fadeout = min(1, pow(2.0, 0.5 - depth1.r * .4));
 
     // makes edge lines
     float offset = 0.0002 + model * distanceSq * 0;
-    float edgecalc = abs(tex2D(depthTexture, saturate(texCoord + float2(offset, 0))).r - depth) + abs(tex2D(depthTexture, saturate(texCoord + float2(-offset, 0))).r - depth) + abs(tex2D(depthTexture, saturate(texCoord + float2(0, offset))).r - depth) + abs(tex2D(depthTexture, saturate(texCoord + float2(0, -offset))).r - depth);
+    float edgecalc = abs(tex2D(depthTexture, saturate(input.texCoord + float2(offset, 0))).r - depth) + abs(tex2D(depthTexture, saturate(input.texCoord + float2(-offset, 0))).r - depth) + abs(tex2D(depthTexture, saturate(input.texCoord + float2(0, offset))).r - depth) + abs(tex2D(depthTexture, saturate(input.texCoord + float2(0, -offset))).r - depth);
     float edge = clamp(edgecalc, 0.1, 1);
 
     float fogColor = float4(.4, .4, .4, 0);
