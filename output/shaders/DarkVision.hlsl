@@ -69,9 +69,9 @@ float4 SFXDarkVisionPS(PS_INPUT input) : COLOR0 {
 
     const float2 depth1 = tex2D(depthTexture, input.texCoord).rg;
     const float  depth2 = tex2D(depthTexture, input.texCoord + float2( offset, 0)).rg;
-	const float  depth3 = tex2D(depthTexture, input.texCoord + float2(-offset, 0)).rg;
-	const float  depth4 = tex2D(depthTexture, input.texCoord + float2( 0,  offset)).rg;
-	const float  depth5 = tex2D(depthTexture, input.texCoord + float2( 0, -offset)).rg;
+    const float  depth3 = tex2D(depthTexture, input.texCoord + float2(-offset, 0)).rg;
+    const float  depth4 = tex2D(depthTexture, input.texCoord + float2( 0,  offset)).rg;
+    const float  depth5 = tex2D(depthTexture, input.texCoord + float2( 0, -offset)).rg;
 
     const float3 worldPosition = float3(input.texCoord.x, input.texCoord.y, tex2D(depthTexture, input.texCoord).r);
     const float distance3D = length(worldPosition);
